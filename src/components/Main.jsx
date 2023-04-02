@@ -1,21 +1,6 @@
 import React from 'react'
 
-function Main() {
-    function openPopup(selectorPopup) {
-        document.querySelector(selectorPopup).classList.add('popup_opened')
-    }
-    
-    function handleEditAvatarClick() {
-        openPopup('.popup_type_avatar-edit')
-    }
-    
-    function handleEditProfileClick() {
-        openPopup('.popup_type_profile-edit')
-    }
-    
-    function handleAddPlaceClick() {
-        openPopup('.popup_type_add-card')
-    }
+function Main({onEditProfile, onAddPlace, onEditAvatar}) {
 
     return (
         <main className="content">
@@ -24,7 +9,7 @@ function Main() {
                     className="profile__edit-avatar-btn"
                     aria-label="Изменить аватар"
                     type="button"
-                    onClick={handleEditAvatarClick}
+                    onClick={onEditAvatar}
                 >
                     <img className="profile__avatar" src="#" alt="#" />
                     <div className="profile__overlay-avatar-btn"></div>
@@ -36,7 +21,7 @@ function Main() {
                             className="profile__edit-btn"
                             aria-label="Изменить профиль"
                             type="button"
-                            onClick={handleEditProfileClick}
+                            onClick={onEditProfile}
                             >
                         </button>
                     </div>
@@ -46,7 +31,7 @@ function Main() {
                     className="profile__add-btn"
                     aria-label="Добавить место"
                     type="button"
-                    onClick={handleAddPlaceClick}
+                    onClick={onAddPlace}
                 >
                 </button>
             </section>

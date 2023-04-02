@@ -6,9 +6,12 @@ import PopupWithForm from './PopupWithForm'
 import ImagePopup from './ImagePopup'
 
 function App() {
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false)
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false)
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
   return (
     <div className="page">
-      <PopupWithForm title='Редактировать профиль' name='profile-edit' buttonText='Сохранить'>
+      <PopupWithForm title='Редактировать профиль' name='profile-edit' buttonText='Сохранить' isOpen={isEditProfilePopupOpen}>
         <div className="popup__input-container">
           <input type="text" className="popup__input" name="owner" id="owner-input" placeholder="Имя" minLength="2"
             maxLength="40" required />
@@ -19,7 +22,7 @@ function App() {
         </div>
       </PopupWithForm>
 
-      <PopupWithForm title='Обновить аватар' name='avatar-edit' buttonText='Сохранить' classPopupContainer='popup__container_size_average'>
+      <PopupWithForm title='Обновить аватар' name='avatar-edit' buttonText='Сохранить' isOpen={isEditAvatarPopupOpen} classPopupContainer='popup__container_size_average'>
         <div className="popup__input-container">
           <input type="url" className="popup__input" name="avatar" id="avatar-input" placeholder="Ссылка на картинку"
             required />
@@ -27,7 +30,7 @@ function App() {
         </div>
       </PopupWithForm>
 
-      <PopupWithForm title='Новое место' name='add-card' buttonText='Сохранить'>
+      <PopupWithForm title='Новое место' name='add-card' buttonText='Сохранить' isOpen={isAddPlacePopupOpen}>
         <div className="popup__input-container">
           <input type="text" className="popup__input" name="name" id="title-input" placeholder="Название" minLength="2"
             maxLength="30" required />
@@ -40,16 +43,14 @@ function App() {
       <PopupWithForm title='Вы уверены' name='delete-card' buttonText='Да' classPopupContainer='popup__container_size_small'>
       </PopupWithForm>
 
-      <section className="popup popup_type_image popup_background-blackout_hard">
-        <figure className="popup__figure">
-          <button className="popup__close-btn" aria-label="Закрыть" type="button"></button>
-          <img className="popup__image" src="#" alt="картинка" />
-          <figcaption className="popup__caption"></figcaption>
-        </figure>
-      </section>
+      <ImagePopup />
 
       <Header />
-      <Main />
+      <Main 
+      onEditProfile={() => setIsEditProfilePopupOpen(!isEditProfilePopupOpen)}
+      onAddPlace={() => setIsAddPlacePopupOpen(!isAddPlacePopupOpen)}
+      onEditAvatar={() => setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)}
+      />
       <Footer />
     </div>
   );
