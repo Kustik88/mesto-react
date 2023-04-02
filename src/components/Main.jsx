@@ -1,6 +1,20 @@
 import React from 'react'
-
+import api from '../utils/Api'
 function Main({onEditProfile, onAddPlace, onEditAvatar}) {
+
+    const [userName, setUserName] = React.useState('')
+    const [userDescription, setUserDescription] = React.useState('')
+    const [userAvatar, setUserAvatar] = React.useState('')
+
+    React.useEffect(() => {
+        api.getCurrentUser()
+        .then(dataUser => {
+            setUserName(dataUser.name)
+            setUserDescription(dataUser.about)
+            setUserAvatar(dataUser.avatar)
+        })
+        .catch(err => console.log(err))
+    },[]) 
 
     return (
         <main className="content">
@@ -11,12 +25,12 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
                     type="button"
                     onClick={onEditAvatar}
                 >
-                    <img className="profile__avatar" src="#" alt="#" />
+                    <img className="profile__avatar" src={userAvatar} alt={userName} />
                     <div className="profile__overlay-avatar-btn"></div>
                 </button>
                 <div className="profile__info">
                     <div className="profile__owner-container">
-                        <h1 className="profile__owner">Жак</h1>
+                        <h1 className="profile__owner">{userName}</h1>
                         <button
                             className="profile__edit-btn"
                             aria-label="Изменить профиль"
@@ -25,7 +39,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
                             >
                         </button>
                     </div>
-                    <p className="profile__job"></p>
+                    <p className="profile__job">{userDescription}</p>
                 </div>
                 <button
                     className="profile__add-btn"
