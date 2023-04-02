@@ -1,11 +1,14 @@
 import React from 'react'
 import api from '../utils/Api'
+import Card from './Card'
+
 function Main({onEditProfile, onAddPlace, onEditAvatar}) {
 
     const [userName, setUserName] = React.useState('')
     const [userDescription, setUserDescription] = React.useState('')
     const [userAvatar, setUserAvatar] = React.useState('')
-
+    const [cards, setCards] = React.useState([])
+  
     React.useEffect(() => {
         api.getCurrentUser()
         .then(dataUser => {
@@ -14,7 +17,14 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
             setUserAvatar(dataUser.avatar)
         })
         .catch(err => console.log(err))
-    },[]) 
+    }, [])
+
+    React.useEffect(() => {
+        api.getCards()
+        .then(dataCards => setCards(dataCards))
+        .catch(err => console.log(err))
+    }, [])
+    
 
     return (
         <main className="content">
@@ -23,8 +33,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
                     className="profile__edit-avatar-btn"
                     aria-label="Изменить аватар"
                     type="button"
-                    onClick={onEditAvatar}
-                >
+                    onClick={onEditAvatar}>
                     <img className="profile__avatar" src={userAvatar} alt={userName} />
                     <div className="profile__overlay-avatar-btn"></div>
                 </button>
@@ -50,6 +59,9 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
                 </button>
             </section>
             <ul className="cards">
+                {cards.map(card => (
+                    <Card key={card._id} cardData={card} />
+                ))}
             </ul>
         </main>
     );
