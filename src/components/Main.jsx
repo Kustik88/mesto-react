@@ -1,23 +1,22 @@
-import React from 'react';
-
-function openPopup(selectorPopup) {
-    document.querySelector(selectorPopup).classList.add('popup_opened')
-}
-
-function handleEditAvatarClick() {
-    openPopup('.popup_type_avatar-edit')
-}
-
-function handleEditProfileClick() {
-    openPopup('.popup_type_profile-edit')
-}
-
-function handleAddPlaceClick() {
-    openPopup('.popup_type_add-card')
-}
-
+import React from 'react'
 
 function Main() {
+    function openPopup(selectorPopup) {
+        document.querySelector(selectorPopup).classList.add('popup_opened')
+    }
+    
+    function handleEditAvatarClick() {
+        openPopup('.popup_type_avatar-edit')
+    }
+    
+    function handleEditProfileClick() {
+        openPopup('.popup_type_profile-edit')
+    }
+    
+    function handleAddPlaceClick() {
+        openPopup('.popup_type_add-card')
+    }
+
     return (
         <main className="content">
             <section className="profile">
