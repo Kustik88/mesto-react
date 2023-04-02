@@ -9,9 +9,18 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
+  
+  function closeAllPopups() {
+    document.querySelector('.popup_opened').classList.remove('popup_opened')
+    setIsEditProfilePopupOpen(false)
+    setIsAddPlacePopupOpen(false)
+    setIsEditAvatarPopupOpen(false)
+    
+  }
+
   return (
     <div className="page">
-      <PopupWithForm title='Редактировать профиль' name='profile-edit' buttonText='Сохранить' isOpen={isEditProfilePopupOpen}>
+      <PopupWithForm title='Редактировать профиль' name='profile-edit' buttonText='Сохранить' isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
         <div className="popup__input-container">
           <input type="text" className="popup__input" name="owner" id="owner-input" placeholder="Имя" minLength="2"
             maxLength="40" required />
@@ -22,7 +31,7 @@ function App() {
         </div>
       </PopupWithForm>
 
-      <PopupWithForm title='Обновить аватар' name='avatar-edit' buttonText='Сохранить' isOpen={isEditAvatarPopupOpen} classPopupContainer='popup__container_size_average'>
+      <PopupWithForm title='Обновить аватар' name='avatar-edit' buttonText='Сохранить' isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} classPopupContainer='popup__container_size_average'>
         <div className="popup__input-container">
           <input type="url" className="popup__input" name="avatar" id="avatar-input" placeholder="Ссылка на картинку"
             required />
@@ -30,7 +39,7 @@ function App() {
         </div>
       </PopupWithForm>
 
-      <PopupWithForm title='Новое место' name='add-card' buttonText='Сохранить' isOpen={isAddPlacePopupOpen}>
+      <PopupWithForm title='Новое место' name='add-card' buttonText='Сохранить' isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
         <div className="popup__input-container">
           <input type="text" className="popup__input" name="name" id="title-input" placeholder="Название" minLength="2"
             maxLength="30" required />
