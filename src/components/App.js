@@ -9,9 +9,25 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
+  const [selectedCard, setSelectedCard] = React.useState(false)
   
-  function closeAllPopups(setFunc) {
-    setFunc(false)
+  function closeAllPopups(setter) {
+    setter(false)
+  }
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
+  }
+
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen)
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
+  }
+  function handleCardClick(card) {
+    setSelectedCard(card)
   }
 
   return (
@@ -63,13 +79,14 @@ function App() {
       <PopupWithForm title='Вы уверены' name='delete-card' buttonText='Да' classPopupContainer='popup__container_size_small'>
       </PopupWithForm>
 
-      <ImagePopup />
+      <ImagePopup card={selectedCard} onClose={() => {closeAllPopups(setSelectedCard)}} />
 
       <Header />
       <Main 
-      onEditProfile={() => setIsEditProfilePopupOpen(!isEditProfilePopupOpen)}
-      onAddPlace={() => setIsAddPlacePopupOpen(!isAddPlacePopupOpen)}
-      onEditAvatar={() => setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)}
+      onEditProfile={handleEditProfileClick }
+      onAddPlace={handleAddPlaceClick}
+      onEditAvatar={handleEditAvatarClick}
+      onCardClick={handleCardClick}
       />
       <Footer />
     </div>
