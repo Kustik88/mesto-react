@@ -9,10 +9,13 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
-  const [selectedCard, setSelectedCard] = React.useState(false)
+  const [selectedCard, setSelectedCard] = React.useState({ name: '', link: '' })
 
-  function closeAllPopups(setter) {
-    setter(false)
+  function closeAllPopups() {
+    setIsEditAvatarPopupOpen(false)
+    setIsAddPlacePopupOpen(false)
+    setIsEditProfilePopupOpen(false)
+    setSelectedCard({ name: '', link: '' })
   }
 
   function handleEditAvatarClick() {
@@ -36,7 +39,7 @@ function App() {
         title='Редактировать профиль'
         name='profile-edit' buttonText='Сохранить'
         isOpen={isEditProfilePopupOpen}
-        onClose={() => closeAllPopups(setIsEditProfilePopupOpen)}>
+        onClose={closeAllPopups}>
         <div className="popup__input-container">
           <input type="text" className="popup__input" name="owner" id="owner-input" placeholder="Имя" minLength="2"
             maxLength="40" required />
@@ -52,7 +55,7 @@ function App() {
         name='avatar-edit'
         buttonText='Сохранить'
         isOpen={isEditAvatarPopupOpen}
-        onClose={() => closeAllPopups(setIsEditAvatarPopupOpen)}
+        onClose={closeAllPopups}
         classPopupContainer='popup__container_size_average'>
         <div className="popup__input-container">
           <input type="url" className="popup__input" name="avatar" id="avatar-input" placeholder="Ссылка на картинку"
@@ -66,7 +69,7 @@ function App() {
         name='add-card'
         buttonText='Сохранить'
         isOpen={isAddPlacePopupOpen}
-        onClose={() => closeAllPopups(setIsAddPlacePopupOpen)}>
+        onClose={closeAllPopups}>
         <div className="popup__input-container">
           <input type="text" className="popup__input" name="name" id="title-input" placeholder="Название" minLength="2"
             maxLength="30" required />
@@ -79,7 +82,7 @@ function App() {
       <PopupWithForm title='Вы уверены' name='delete-card' buttonText='Да' classPopupContainer='popup__container_size_small'>
       </PopupWithForm>
 
-      <ImagePopup card={selectedCard} onClose={() => { closeAllPopups(setSelectedCard) }} />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
       <Header />
       <Main
