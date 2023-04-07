@@ -12,7 +12,7 @@ export default function Card({ card, onCardClick }) {
       <div className="card__info">
         <h2 className="card__heading">{card.name}</h2>
         <div className="card__like-container">
-          <button className="card__like-icon" aria-label="Нравится" type="button"></button>
+          <button className="card__like-icon" aria-label="Нравится" type="button" />
           <div className="card__like-counter">{card.likes.length}</div>
         </div>
       </div>

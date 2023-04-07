@@ -34,7 +34,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
           type="button"
           onClick={onEditAvatar}>
           <img className="profile__avatar" src={userAvatar} alt={userName} />
-          <div className="profile__overlay-avatar-btn"></div>
+          <div className="profile__overlay-avatar-btn" />
         </button>
         <div className="profile__info">
           <div className="profile__owner-container">
@@ -44,8 +44,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
               aria-label="Изменить профиль"
               type="button"
               onClick={onEditProfile}
-            >
-            </button>
+            />
           </div>
           <p className="profile__job">{userDescription}</p>
         </div>
@@ -54,8 +53,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
           aria-label="Добавить место"
           type="button"
           onClick={onAddPlace}
-        >
-        </button>
+        />
       </section>
       <ul className="cards">
         {cards.map(card => (

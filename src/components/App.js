@@ -43,10 +43,10 @@ function App() {
         <div className="popup__input-container">
           <input type="text" className="popup__input" name="owner" id="owner-input" placeholder="Имя" minLength="2"
             maxLength="40" required />
-          <span className="popup__input-error" id="owner-input-error"></span>
+          <span className="popup__input-error" id="owner-input-error" />
           <input type="text" className="popup__input" name="job" id="job-input" placeholder="О себе" minLength="2"
             maxLength="200" required />
-          <span className="popup__input-error" id="job-input-error"></span>
+          <span className="popup__input-error" id="job-input-error" />
         </div>
       </PopupWithForm>
 
@@ -60,7 +60,7 @@ function App() {
         <div className="popup__input-container">
           <input type="url" className="popup__input" name="avatar" id="avatar-input" placeholder="Ссылка на картинку"
             required />
-          <span className="popup__input-error" id="avatar-input-error"></span>
+          <span className="popup__input-error" id="avatar-input-error" />
         </div>
       </PopupWithForm>
 
@@ -73,14 +73,13 @@ function App() {
         <div className="popup__input-container">
           <input type="text" className="popup__input" name="name" id="title-input" placeholder="Название" minLength="2"
             maxLength="30" required />
-          <span className="popup__input-error" id="title-input-error"></span>
+          <span className="popup__input-error" id="title-input-error" />
           <input type="url" className="popup__input" name="link" id="url-input" placeholder="Ссылка на картинку" required />
-          <span className="popup__input-error" id="url-input-error"></span>
+          <span className="popup__input-error" id="url-input-error" />
         </div>
       </PopupWithForm>
 
-      <PopupWithForm title='Вы уверены' name='delete-card' buttonText='Да' classPopupContainer='popup__container_size_small'>
-      </PopupWithForm>
+      <PopupWithForm title='Вы уверены' name='delete-card' buttonText='Да' classPopupContainer='popup__container_size_small' />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
