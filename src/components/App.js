@@ -4,6 +4,7 @@ import Main from './Main'
 import Footer from './Footer'
 import PopupWithForm from './PopupWithForm'
 import ImagePopup from './ImagePopup'
+import EditProfilePopup from './EditProfilePopup'
 import api from '../utils/Api'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
@@ -13,14 +14,48 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
   const [selectedCard, setSelectedCard] = React.useState({ name: '', link: '' })
   const [currentUser, setCurrentUser] = React.useState({})
+  const [cards, setCards] = React.useState([])
 
   React.useEffect(() => {
     api.getCurrentUser()
       .then(res => setCurrentUser(res))
   }, [])
 
-  console.log(currentUser)
-  console.log(CurrentUserContext)
+  React.useEffect(() => {
+    api.getCards()
+      .then(dataCards => setCards(dataCards))
+      .catch(err => console.log(err))
+  }, [])
+
+  function handleUpdateUser(props) {
+    api.editUserInfo(props)
+      .then(res => {
+        setCurrentUser(res)
+        closeAllPopups()
+      })
+      .catch(err => console.log(err))
+  }
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    (isLiked
+      ? api.unlikeCard(card._id)
+      : api.likeCard(card._id))
+      .then((newCard) => {
+        const listCards = cards.map(card => card._id === newCard._id ? newCard : card)
+        setCards(listCards)
+      })
+      .catch(err => console.log(err))
+  }
+
+  function handleCardDelete(cardId) {
+    api.deleteCard(cardId)
+      .then(() => {
+        const listCards = cards.filter(elem => elem._id !== cardId)
+        setCards(listCards)
+      })
+      .catch(err => console.log(err))
+  }
 
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false)
@@ -47,21 +82,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <PopupWithForm
-          title='Редактировать профиль'
-          name='profile-edit' buttonText='Сохранить'
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}>
-          <div className="popup__input-container">
-            <input type="text" className="popup__input" name="owner" id="owner-input" placeholder="Имя" minLength="2"
-              maxLength="40" required />
-            <span className="popup__input-error" id="owner-input-error" />
-            <input type="text" className="popup__input" name="job" id="job-input" placeholder="О себе" minLength="2"
-              maxLength="200" required />
-            <span className="popup__input-error" id="job-input-error" />
-          </div>
-        </PopupWithForm>
-
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
         <PopupWithForm
           title='Обновить аватар'
           name='avatar-edit'
@@ -97,10 +118,13 @@ function App() {
 
         <Header />
         <Main
+          listCards={cards}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
         <Footer />
       </div>

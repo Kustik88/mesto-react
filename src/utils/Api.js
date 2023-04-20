@@ -34,8 +34,8 @@ class Api {
       method: 'PATCH',
       headers: this._getHeaders(),
       body: JSON.stringify({
-        name: data.owner,
-        about: data.job
+        name: data.name,
+        about: data.about
       })
     })
   }
