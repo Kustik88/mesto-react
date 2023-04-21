@@ -24,14 +24,14 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       classPopupContainer='popup__container_size_average'>
       <div className="popup__input-container">
         <input
-        type="url"
-        ref={avatarRef}
-        onChange={handleChange}
-        className="popup__input"
-        name="avatar"
-        id="avatar-input"
-        placeholder="Ссылка на картинку"
-        required />
+          type="url"
+          ref={avatarRef}
+          onChange={handleChange}
+          className="popup__input"
+          name="avatar"
+          id="avatar-input"
+          placeholder="Ссылка на картинку"
+          required />
         <span className="popup__input-error" id="avatar-input-error" />
       </div>
     </PopupWithForm>
