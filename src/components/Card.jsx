@@ -1,7 +1,7 @@
 import React from "react"
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-export default function Card({ card, onCardClick, onCardLike, onCardTrashClick, onCardDelete }) {
+export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const currentUser = React.useContext(CurrentUserContext)
   const isLiked = card.likes.some(user => user._id === currentUser._id)
   const classNameLikeButton = `card__like-icon ${isLiked && 'card__like-icon_active'}`
@@ -15,17 +15,13 @@ export default function Card({ card, onCardClick, onCardLike, onCardTrashClick, 
     onCardLike(card)
   }
 
-  function handleTrashClick() {
-    onCardTrashClick()
-  }
-
   function handleCardDelete() {
     onCardDelete(card._id)
   }
 
   return (
     <li className="card">
-      {isOwner && <button className="card__delete-btn" aria-label="Удалить" type="button" onClick={handleTrashClick}></button>}
+      {isOwner && <button className="card__delete-btn" aria-label="Удалить" type="button" onClick={handleCardDelete}></button>}
       <img className="card__image" src={card.link} alt={card.name} onClick={handleClick} />
       <div className="card__info">
         <h2 className="card__heading">{card.name}</h2>
