@@ -6,7 +6,6 @@ function Main({ listCards, onEditProfile, onAddPlace, onEditAvatar, onCardClick,
 
   const { name, about, avatar } = useContext(CurrentUserContext)
 
-
   return (
     <main className="content">
       <section className="profile">
@@ -25,8 +24,7 @@ function Main({ listCards, onEditProfile, onAddPlace, onEditAvatar, onCardClick,
               className="profile__edit-btn"
               aria-label="Изменить профиль"
               type="button"
-              onClick={onEditProfile}
-            />
+              onClick={onEditProfile} />
           </div>
           <p className="profile__job">{about}</p>
         </div>
