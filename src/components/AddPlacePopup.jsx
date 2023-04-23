@@ -1,25 +1,23 @@
-import React from "react"
+import { useRef, useEffect } from "react"
 import PopupWithForm from "./PopupWithForm"
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const nameCardRef = React.useRef('')
-  const urlCardRef = React.useRef('')
+  const nameCardRef = useRef(null)
+  const urlCardRef = useRef(null)
 
-  function handleNameCardChange(e) {
-    nameCardRef.current = e.target.value
-  }
-
-  function handleUrlCardChange(e) {
-    urlCardRef.current = e.target.value
-  }
+  useEffect(() => {
+    if (isOpen) {
+      nameCardRef.current.value = ''
+      urlCardRef.current.value = ''
+    }
+  })
 
   function handleSubmit(e) {
     e.preventDefault()
     onAddPlace({
-      name: nameCardRef.current,
-      link: urlCardRef.current
+      name: nameCardRef.current.value,
+      link: urlCardRef.current.value
     })
-    onClose()
   }
 
   return (
@@ -34,7 +32,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         <input
           type="text"
           ref={nameCardRef}
-          onChange={handleNameCardChange}
           className="popup__input"
           name="name"
           id="title-input"
@@ -46,7 +43,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         <input
           type="url"
           ref={urlCardRef}
-          onChange={handleUrlCardChange}
           className="popup__input"
           name="link"
           id="url-input"
