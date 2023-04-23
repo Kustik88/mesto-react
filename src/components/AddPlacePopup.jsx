@@ -10,7 +10,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       nameCardRef.current.value = ''
       urlCardRef.current.value = ''
     }
-  })
+  }, [isOpen])
 
   function handleSubmit(e) {
     e.preventDefault()

@@ -24,7 +24,6 @@ function App() {
       .catch(err => displayError(err))
   }, [])
 
-
   useEffect(() => {
     api.getCards()
       .then(dataCards => setCards(dataCards))
